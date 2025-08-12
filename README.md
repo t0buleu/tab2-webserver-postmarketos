@@ -77,6 +77,58 @@ doas nft -f /etc/nftables.conf
 ```bash
 doas rc-service nftables save
 ```
+# 🐳 Установка и автозапуск Docker на OpenRC
+##1️⃣ Установка Docker и Docker Compose
+```bash
+doas apk add docker docker-compose
+```
+##2️⃣ Добавление пользователя в группу docker
+```bash
+doas adduser $ваш_пользователь docker
+```
+И после перезагрузки обнаружил, что докер поднимается только после принудительного ввода команды, так как сам docker не видит сети и сразу падает:
+```bash
+doas rc-service docker start
+```
+Но так как мы делаем автоматизированую систему добавляем docker в автозагрузку и пишем bash скрипт: 
+##3️⃣ Добавление Docker в автозагрузку 
+```bash
+doas rc-update add docker default
+```
+##4️⃣ Также создаем файл в директории /etc/init.d/docker-wait с содержимым:
+```bash
+#!/sbin/openrc-run
+command="/usr/bin/true"
+description="Wait for network to get IP and then start docker"
+
+depend() {
+    need net
+    after wpa_supplicant NetworkManager  # опционально, можно убрать или добавить нужный менеджер
+}
+
+start() {
+    ebegin "Waiting for network to be up (max 60s)"
+    for i in $(seq 1 60); do
+        # проверяем есть ли IPv4 адрес на интерфейсах
+        if ip -4 addr show scope global | grep -q "inet "; then
+            eend 0
+            ebegin "Starting docker"
+            doas rc-service docker start
+            eend $?
+            return 0
+        fi
+        sleep 1
+    done
+    eend 1
+    return 1
+}
+```
+также файл прикреплен в репазитории 
+##5️⃣ И даём права на инициализацию, а также добавляем в OpenRC:
+```bash
+doas chmod +x /etc/init.d/docker-wait
+doas rc-update add docker-wait default
+```
 
 
 
