@@ -20,7 +20,7 @@
 
 ---
 
-## Установка образа 
+# 📲 Установка образа 
 
 - Как сделать свой кастомный образ указано здесь [pmbootstrap](https://wiki.postmarketos.org/wiki/Pmbootstrap/Using_pmbootstrap), я выбрал xfce4 так как она наиболее легкая и уже мне привычная
 - Но я нашёл готовый образ на сайте [PostmarketOS для Samsung Galaxy Tab 2 7.0](https://images.postmarketos.org/bpo/v25.06/samsung-espresso7/)
@@ -42,6 +42,7 @@ doas apk add nftables
 doas rc-update add nftables default
 doas rc-service nftables start
 ```
+
 
 
 
