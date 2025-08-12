@@ -31,19 +31,51 @@
 
 Данный раздел описывает, как мы открыли доступ по SSH на кастомной сборке postmarketOS, установленной на Samsung Galaxy Tab 2 (GT-P3110).
 
-## 🚀 1. Установка nftables
+## 1️⃣ Установка nftables
 ```bash
 doas apk add nftables
 ```
-## 🔄 2. Включение автозапуска
+## 2️⃣ Включение автозапуска
 ```bash
 doas rc-update add nftables default
 doas rc-service nftables start
 ```
-## ✏️ 3. Редактирование конфигурации
+## 3️⃣ Редактирование конфигурации
 Открываем конфигурационный файл:
 ```bash
+doas apk add nano
 doas nano /etc/nftables.conf
+```
+## 4️⃣ Сама конфигурация, так же есть в репазитории:
+```bash
+#!/usr/sbin/nft -f
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0;
+        policy drop;
+
+        # Локальный трафик
+        iif lo accept
+
+        # Уже установленные соединения
+        ct state established,related accept
+
+        # SSH (порт 22 или свой)
+        tcp dport 22 accept comment "Accept SSH"
+
+        # Разрешить ping
+        icmp type echo-request accept comment "Allow Ping"
+    }
+}
+```
+## 5️⃣ Применение правил
+```bash
+doas nft -f /etc/nftables.conf
+```
+## 6️⃣ Сохранение правил
+```bash
+doas rc-service nftables save
 ```
 
 
