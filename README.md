@@ -35,4 +35,5 @@
 
 ## Установка образа 
 
-- Установка и настройка pmbootstrap описаны   
+- Установка и настройка [pmbootstrap](https://wiki.postmarketos.org/wiki/Pmbootstrap/Using_pmbootstrap) описаны   
+
