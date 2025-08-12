@@ -40,6 +40,12 @@ doas apk add nftables
 doas rc-update add nftables default
 doas rc-service nftables start
 ```
+## ✏️ 3. Редактирование конфигурации
+Открываем конфигурационный файл:
+```bash
+doas nano /etc/nftables.conf
+```
+
 
 
 
