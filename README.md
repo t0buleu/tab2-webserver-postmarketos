@@ -2,8 +2,6 @@
 
 ---
 
-## 🚀 О проекте
-
 # 📱 PostmarketOS на Samsung Galaxy Tab 2 (GT-P3110) — превращение в веб-сервер
 
 ## 📖 О проекте
@@ -42,6 +40,7 @@ doas apk add nftables
 doas rc-update add nftables default
 doas rc-service nftables start
 ```
+
 
 
 
