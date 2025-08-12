@@ -35,5 +35,6 @@
 
 ## Установка образа 
 
-- Установка и настройка [pmbootstrap](https://wiki.postmarketos.org/wiki/Pmbootstrap/Using_pmbootstrap) описаны   
+- Как сделать свой кастомный образ указано здесь [pmbootstrap](https://wiki.postmarketos.org/wiki/Pmbootstrap/Using_pmbootstrap) 
+- Но я нашёл готовый образ на сайте [PostmarketOS для Samsung Galaxy Tab 2 7.0](https://images.postmarketos.org/bpo/v25.06/samsung-espresso7/)
 
