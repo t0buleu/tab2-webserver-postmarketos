@@ -135,10 +135,6 @@ doas rc-update add docker-wait default
 
 ## 1️⃣ Скрипт для postmarketOS, который будет мониторить уровень батареи и держать её между 20% и 90%:
 ```bash
-#!/bin/sh
-# battery_manager.sh
-# Следит за уровнем батареи и уведомляет при достижении порогов
-# WARNING: Остановка зарядки возможна только если драйвер поддерживает charging_enabled
 
 BATTERY="/sys/class/power_supply/max170xx_battery"
 LOW=20
@@ -154,12 +150,11 @@ while true; do
     CAP=$(cat "$BATTERY/capacity")
     STATUS=$(cat "$BATTERY/status")
 
-    # Оповещение о низком заряде
+   
     if [ "$CAP" -le "$LOW" ]; then
         echo "Battery low: $CAP% — рекомендуется подключить зарядное устройство."
     fi
 
-    # Попытка остановить зарядку при достижении верхнего порога
     if [ "$CAP" -ge "$HIGH" ] && [ "$STATUS" = "Charging" ]; then
         if [ -f "$BATTERY/charging_enabled" ]; then
             echo 0 > "$BATTERY/charging_enabled"
@@ -169,7 +164,7 @@ while true; do
         fi
     fi
 
-    # Если батарея меньше верхнего порога и зарядка была отключена, разрешаем зарядку
+  
     if [ "$CAP" -lt "$HIGH" ] && [ -f "$BATTERY/charging_enabled" ]; then
         echo 1 > "$BATTERY/charging_enabled"
     fi
@@ -217,6 +212,7 @@ sudo chown root:root /run
 ```
 
 Так скрипт будет следить за уровнем батареи и уведомлять и ограничивать заряд.
+
 
 
 
