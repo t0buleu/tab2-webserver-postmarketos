@@ -181,7 +181,7 @@ chmod +x /usr/local/bin/battery_manager.sh
 
 
 ## 3️⃣ Для автоматического запуска после загрузки создай OpenRC-сервис /etc/init.d/battery_manager и указать pid-afqk:
-```
+```bash
 #!/sbin/openrc-run
 
 description="Battery manager service"
@@ -196,7 +196,7 @@ depend() {
 
 
 ## 4️⃣ Нужно сделать сервис исполняемым и включить автозапуск:
-```
+```bash
 chmod +x /etc/init.d/battery_manager
 rc-update add battery_manager default
 rc-service battery_manager start
@@ -205,13 +205,14 @@ rc-service battery_manager start
 Нужно проверить, что скрипт /usr/local/bin/battery_manager.sh не запускается сам, а просто выполняет действия.
 
 ## 5️⃣ Создайте директорию для PID:
-```
+```bash
 
 sudo mkdir -p /run
 sudo chown root:root /run
 ```
 
 Так скрипт будет следить за уровнем батареи и уведомлять и ограничивать заряд.
+
 
 
 
