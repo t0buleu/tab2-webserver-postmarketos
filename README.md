@@ -104,7 +104,7 @@ description="Wait for network to get IP and then start docker"
 
 depend() {
     need net
-    after wpa_supplicant NetworkManager  # опционально, можно убрать или добавить нужный менеджер
+    after wpa_supplicant NetworkManager  
 }
 
 start() {
@@ -212,6 +212,7 @@ sudo chown root:root /run
 ```
 
 Так скрипт будет следить за уровнем батареи и уведомлять и ограничивать заряд.
+
 
 
 
